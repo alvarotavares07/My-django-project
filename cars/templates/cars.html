@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Carros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        img {
+            max-width: 100px;
+            border-radius: 4px;
+        }
+        .no-photo {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Carros</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Ano de Fábrica</th>
+                <th>Ano do Modelo</th>
+                <th>Placa</th>
+                <th>Valor</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+            <tr>
+                <td>{{ car.model }}</td>
+                <td>{{ car.brand.name }}</td>
+                <td>{{ car.factory_year }}</td>
+                <td>{{ car.model_year }}</td>
+                <td>{{ car.plate }}</td>
+                <td>R$ {{ car.value|floatformat:2 }}</td>
+                <td>
+                    {% if car.photo %}
+                        <img src="{{ car.photo.url }}" alt="{{ car.model }}">
+                    {% else %}
+                        <span class="no-photo">Sem Foto</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" style="text-align: center;">Nenhum carro encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
